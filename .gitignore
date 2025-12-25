@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Node
+node_modules/
+build/
+.next/
+
 # Virtual environment
 venv/
 env/

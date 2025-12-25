@@ -1,0 +1,71 @@
+# CivicCam Configuration
+# AI-powered roadside litter detection system
+
+camera:
+  # Source options: 
+  # - Integer (0, 1, etc.) for webcam index
+  # - Path to video file ("/path/to/video.mp4")
+  # - RTSP URL ("rtsp://user:pass@ip:port/stream")
+  source: 0
+  fps: 30
+  resolution: [1280, 720]
+  reconnect_delay: 5  # seconds to wait before reconnecting
+
+detection:
+  # YOLOv8 model options: yolov8n.pt (nano), yolov8s.pt (small), yolov8m.pt (medium)
+  model: "yolov8n.pt"
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  # COCO classes of interest for littering detection
+  classes_of_interest:
+    - person
+    - bottle
+    - cup
+    - handbag
+    - backpack
+    - umbrella
+    - cell phone
+    - car
+    - motorcycle
+    - bus
+    - truck
+
+action_recognition:
+  enable: true
+  proximity_threshold: 150      # pixels - max distance for person-object association
+  fall_threshold: 50            # pixels - min Y displacement to detect drop
+  separation_threshold: 200     # pixels - distance for "person left" detection
+  validation_frames: 5          # frames to confirm stationary object
+  ground_level_ratio: 0.8       # Y ratio below which is "ground level"
+  cooldown_seconds: 3.0         # min time between events for same object
+
+alpr:
+  enable: true
+  confidence_threshold: 0.5
+  plate_region_ratio: 0.35      # Bottom 35% of vehicle bbox
+  languages: ["en"]             # OCR languages
+
+privacy:
+  blur_faces: true
+  blur_plates: false
+  anonymize_after_days: 30
+
+storage:
+  evidence_path: "./data/evidence"
+  retention_days: 30
+  max_storage_gb: 100
+
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "./logs/civiccam.log"
+  console_output: true
+
+display:
+  show_fps: true
+  show_labels: true
+  show_confidence: true
+  window_name: "CivicCam - Real-time Detection"
+  box_color: [0, 255, 0]  # BGR format (green)
+  text_color: [255, 255, 255]  # BGR format (white)
+  box_thickness: 2
+  font_scale: 0.6

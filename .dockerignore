@@ -1,0 +1,36 @@
+# Byte-compiled / optimized
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs and data
+logs/
+*.log
+data/evidence/*
+!data/evidence/.gitkeep
+
+# Models (downloaded at runtime)
+*.pt
+*.onnx
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+
+# Docker
+.dockerignore

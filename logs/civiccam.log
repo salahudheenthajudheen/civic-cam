@@ -1,0 +1,79 @@
+2025-12-25 22:02:38 | INFO     | civiccam | ============================================================
+2025-12-25 22:02:38 | INFO     | civiccam | 🎥 CivicCam - AI-Powered Litter Detection System
+2025-12-25 22:02:38 | INFO     | civiccam | ============================================================
+2025-12-25 22:02:39 | INFO     | civiccam | Device: MPS
+2025-12-25 22:02:39 | INFO     | civiccam | GPU: Apple Silicon GPU
+2025-12-25 22:02:39 | INFO     | civiccam | Loading model: yolov8n.pt
+2025-12-25 22:02:39 | INFO     | civiccam.detector | Loading YOLOv8 model: yolov8n.pt
+2025-12-25 22:02:39 | INFO     | civiccam.detector | Using device: mps
+2025-12-25 22:02:39 | INFO     | civiccam.detector | Filtering to classes: ['person', 'bottle', 'cup', 'handbag', 'backpack', 'umbrella', 'cell phone', 'car', 'motorcycle', 'bus', 'truck'] (IDs: [0, 39, 41, 26, 24, 25, 67, 2, 3, 5, 7])
+2025-12-25 22:02:39 | INFO     | civiccam.detector | Model loaded successfully
+2025-12-25 22:02:39 | INFO     | civiccam | Opening video source: 0
+2025-12-25 22:02:41 | INFO     | civiccam.video_capture | Opened video source: 0
+2025-12-25 22:02:41 | INFO     | civiccam.video_capture | Resolution: 1280x720, FPS: 30.0
+2025-12-25 22:02:41 | INFO     | civiccam | ✅ Video capture started successfully
+2025-12-25 22:02:41 | INFO     | civiccam | Press 'q' to quit, 's' to save current frame
+2025-12-25 22:03:47 | INFO     | civiccam | Quit requested by user
+2025-12-25 22:03:47 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:03:47 | INFO     | civiccam | 📊 Session Summary
+2025-12-25 22:03:47 | INFO     | civiccam |    Total frames processed: 758
+2025-12-25 22:03:47 | INFO     | civiccam |    Total detections: 896
+2025-12-25 22:03:47 | INFO     | civiccam |    Average detections/frame: 1.18
+2025-12-25 22:03:47 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:03:47 | INFO     | civiccam | 🛑 CivicCam shutdown complete
+2025-12-25 22:09:35 | INFO     | civiccam | ============================================================
+2025-12-25 22:09:35 | INFO     | civiccam | 🎥 CivicCam - AI-Powered Litter Detection System
+2025-12-25 22:09:35 | INFO     | civiccam | ============================================================
+2025-12-25 22:09:35 | INFO     | civiccam | Device: MPS
+2025-12-25 22:09:35 | INFO     | civiccam | GPU: Apple Silicon GPU
+2025-12-25 22:09:35 | INFO     | civiccam | Loading model: yolov8n.pt
+2025-12-25 22:09:35 | INFO     | civiccam.detector | Loading YOLOv8 model: yolov8n.pt
+2025-12-25 22:09:35 | INFO     | civiccam.detector | Using device: mps
+2025-12-25 22:09:35 | INFO     | civiccam.detector | Filtering to classes: ['person', 'bottle', 'cup', 'handbag', 'backpack', 'umbrella', 'cell phone', 'car', 'motorcycle', 'bus', 'truck'] (IDs: [0, 39, 41, 26, 24, 25, 67, 2, 3, 5, 7])
+2025-12-25 22:09:35 | INFO     | civiccam.detector | Model loaded successfully
+2025-12-25 22:09:35 | INFO     | civiccam | Initializing action recognition...
+2025-12-25 22:09:35 | INFO     | civiccam | ✅ Action recognition enabled
+2025-12-25 22:09:35 | INFO     | civiccam | Opening video source: 0
+2025-12-25 22:09:37 | INFO     | civiccam.video_capture | Opened video source: 0
+2025-12-25 22:09:37 | INFO     | civiccam.video_capture | Resolution: 1280x720, FPS: 30.0
+2025-12-25 22:09:37 | INFO     | civiccam | ✅ Video capture started successfully
+2025-12-25 22:09:37 | INFO     | civiccam | Press 'q' to quit, 's' to save current frame
+2025-12-25 22:10:07 | INFO     | civiccam | Quit requested by user
+2025-12-25 22:10:07 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:10:07 | INFO     | civiccam | 📊 Session Summary
+2025-12-25 22:10:07 | INFO     | civiccam |    Total frames processed: 395
+2025-12-25 22:10:07 | INFO     | civiccam |    Total detections: 395
+2025-12-25 22:10:07 | INFO     | civiccam |    Average detections/frame: 1.00
+2025-12-25 22:10:07 | INFO     | civiccam |    🚨 Littering events detected: 0
+2025-12-25 22:10:07 | INFO     | civiccam |    Objects tracked: 0
+2025-12-25 22:10:07 | INFO     | civiccam |    Persons tracked: 1
+2025-12-25 22:10:07 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:10:07 | INFO     | civiccam | 🛑 CivicCam shutdown complete
+2025-12-25 22:16:48 | INFO     | civiccam | ============================================================
+2025-12-25 22:16:48 | INFO     | civiccam | 🎥 CivicCam - AI-Powered Litter Detection System
+2025-12-25 22:16:48 | INFO     | civiccam | ============================================================
+2025-12-25 22:16:48 | INFO     | civiccam | Device: MPS
+2025-12-25 22:16:48 | INFO     | civiccam | GPU: Apple Silicon GPU
+2025-12-25 22:16:48 | INFO     | civiccam | Loading model: yolov8n.pt
+2025-12-25 22:16:48 | INFO     | civiccam.detector | Loading YOLOv8 model: yolov8n.pt
+2025-12-25 22:16:48 | INFO     | civiccam.detector | Using device: mps
+2025-12-25 22:16:48 | INFO     | civiccam.detector | Filtering to classes: ['person', 'bottle', 'cup', 'handbag', 'backpack', 'umbrella', 'cell phone', 'car', 'motorcycle', 'bus', 'truck'] (IDs: [0, 39, 41, 26, 24, 25, 67, 2, 3, 5, 7])
+2025-12-25 22:16:48 | INFO     | civiccam.detector | Model loaded successfully
+2025-12-25 22:16:48 | INFO     | civiccam | Initializing action recognition...
+2025-12-25 22:16:48 | INFO     | civiccam | ✅ Action recognition enabled
+2025-12-25 22:16:48 | INFO     | civiccam | Opening video source: 0
+2025-12-25 22:16:50 | INFO     | civiccam.video_capture | Opened video source: 0
+2025-12-25 22:16:50 | INFO     | civiccam.video_capture | Resolution: 1280x720, FPS: 30.0
+2025-12-25 22:16:50 | INFO     | civiccam | ✅ Video capture started successfully
+2025-12-25 22:16:50 | INFO     | civiccam | Press 'q' to quit, 's' to save current frame
+2025-12-25 22:17:29 | INFO     | civiccam | Quit requested by user
+2025-12-25 22:17:29 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:17:29 | INFO     | civiccam | 📊 Session Summary
+2025-12-25 22:17:29 | INFO     | civiccam |    Total frames processed: 524
+2025-12-25 22:17:29 | INFO     | civiccam |    Total detections: 474
+2025-12-25 22:17:29 | INFO     | civiccam |    Average detections/frame: 0.90
+2025-12-25 22:17:29 | INFO     | civiccam |    🚨 Littering events detected: 0
+2025-12-25 22:17:29 | INFO     | civiccam |    Objects tracked: 1
+2025-12-25 22:17:29 | INFO     | civiccam |    Persons tracked: 1
+2025-12-25 22:17:29 | INFO     | civiccam | ------------------------------------------------------------
+2025-12-25 22:17:30 | INFO     | civiccam | 🛑 CivicCam shutdown complete

@@ -1,0 +1,27 @@
+# CivicCam - Core Dependencies
+# AI-powered roadside litter detection system
+
+# Deep Learning & Computer Vision
+ultralytics>=8.0.0      # YOLOv8 implementation
+opencv-python>=4.8.0    # Video capture and image processing
+torch>=2.0.0            # PyTorch for GPU acceleration
+torchvision>=0.15.0     # Vision utilities
+
+# API Server
+fastapi>=0.100.0        # REST API framework
+uvicorn>=0.23.0         # ASGI server
+python-multipart>=0.0.6 # Form handling
+websockets>=11.0        # WebSocket support
+aiofiles>=23.0.0        # Async file serving
+pyyaml>=6.0             # YAML configuration parsing
+numpy>=1.24.0           # Numerical operations
+
+# Future phases (commented out for now)
+# paddleocr>=2.7.0       # OCR for license plates (Phase 3)
+# paddlepaddle>=2.5.0    # PaddlePaddle backend (Phase 3)
+# easyocr>=1.7.0         # Alternative OCR (Phase 3)
+# flask>=2.3.0           # Web API (Phase 5)
+# streamlit>=1.25.0      # Dashboard (Phase 5)
+# pymongo>=4.4.0         # MongoDB (Phase 4)
+# plotly>=5.15.0         # Visualizations (Phase 6)
+# folium>=0.14.0         # Heatmaps (Phase 6)

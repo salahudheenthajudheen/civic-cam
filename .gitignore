@@ -1,0 +1,35 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Logs
+logs/
+*.log
+
+# Evidence (generated at runtime)
+data/evidence/*
+!data/evidence/.gitkeep
+
+# Models (downloaded at runtime)
+*.pt
+*.onnx
+*.pth
+
+# EasyOCR
+~/.EasyOCR/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# Environment
+.env
+.env.local

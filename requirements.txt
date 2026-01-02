@@ -16,12 +16,19 @@ aiofiles>=23.0.0        # Async file serving
 pyyaml>=6.0             # YAML configuration parsing
 numpy>=1.24.0           # Numerical operations
 
+# Streamlit Dashboard
+streamlit>=1.30.0           # Dashboard framework
+requests>=2.31.0            # HTTP client for API calls
+
+# Telegram Integration
+python-telegram-bot>=21.0   # Async Telegram bot API
+python-dotenv>=1.0.0        # Load environment variables from .env file
+
 # Future phases (commented out for now)
 # paddleocr>=2.7.0       # OCR for license plates (Phase 3)
 # paddlepaddle>=2.5.0    # PaddlePaddle backend (Phase 3)
 # easyocr>=1.7.0         # Alternative OCR (Phase 3)
 # flask>=2.3.0           # Web API (Phase 5)
-# streamlit>=1.25.0      # Dashboard (Phase 5)
 # pymongo>=4.4.0         # MongoDB (Phase 4)
 # plotly>=5.15.0         # Visualizations (Phase 6)
 # folium>=0.14.0         # Heatmaps (Phase 6)

@@ -15,12 +15,20 @@ Usage:
 import argparse
 import asyncio
 import json
+import os
 import time
 import threading
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional, Set, Generator
 from contextlib import asynccontextmanager
+
+# Load environment variables from .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # dotenv not installed, use system env vars
 
 import cv2
 import numpy as np
@@ -34,6 +42,7 @@ from modules.video_capture import VideoCapture
 from modules.detector import ObjectDetector, draw_detections, draw_fps, draw_detection_count
 from modules.action_recognizer import ActionRecognizer, draw_littering_alert
 from modules.alpr import LicensePlateReader, draw_plate_info
+from modules.telegram_notifier import TelegramNotifier, create_notifier_from_config
 
 
 # Setup logging
@@ -78,6 +87,7 @@ class VideoStreamManager:
         self.detector = None
         self.action_recognizer = None
         self.plate_reader = None
+        self.telegram_notifier = None
         self.fps_calc = FPSCalculator(window_size=30)
         
         self.current_frame = None
@@ -144,6 +154,11 @@ class VideoStreamManager:
                 logger.info("ALPR enabled")
             except Exception as e:
                 logger.warning(f"Could not initialize ALPR: {e}")
+        
+        # Initialize Telegram notifier
+        self.telegram_notifier = create_notifier_from_config(config)
+        if self.telegram_notifier and self.telegram_notifier.enabled:
+            logger.info("Telegram notifications enabled")
     
     def start(self):
         """Start video capture and processing thread."""
@@ -181,18 +196,23 @@ class VideoStreamManager:
         display_config = self.config.get("display", {})
         box_color = tuple(display_config.get("box_color", [0, 255, 0]))
         text_color = tuple(display_config.get("text_color", [255, 255, 255]))
+        last_detections = []
         
         while self.running:
             ret, frame = self.cap.read()
             if not ret:
-                time.sleep(0.1)
+                time.sleep(0.01)
                 continue
             
             self.frame_count += 1
             
-            # Run detection
-            detections = self.detector.detect(frame)
-            self.detection_count += len(detections)
+            # Run detection every 2nd frame for smoother video
+            if self.frame_count % 2 == 0:
+                detections = self.detector.detect(frame)
+                last_detections = detections
+                self.detection_count += len(detections)
+            else:
+                detections = last_detections
             
             # Draw detections
             if detections:
@@ -228,14 +248,28 @@ class VideoStreamManager:
                         cv2.imwrite(str(save_path), frame)
                         logger.warning(f"🚨 LITTERING: {event.object_label} - saved to {save_path}")
                         
+                        # Build event data with plate info
+                        event_dict = self._event_to_dict(event)
+                        if self.last_plate:
+                            event_dict["vehicleDetected"] = True
+                            event_dict["plateNumber"] = self.last_plate
+                            event_dict["vehicleStatus"] = f"Vehicle detected: {self.last_plate}"
+                        
                         # Add to events list
                         self._add_event(event)
+                        
+                        # Send Telegram notification
+                        if self.telegram_notifier:
+                            self.telegram_notifier.send_incident_alert_sync(
+                                event_dict,
+                                save_path
+                            )
                         
                         # Broadcast via WebSocket (async)
                         if self.ws_manager:
                             asyncio.run(self.ws_manager.broadcast({
                                 "type": "new_event",
-                                "data": self._event_to_dict(event)
+                                "data": event_dict
                             }))
                 
                 # Draw alerts
@@ -304,15 +338,15 @@ class VideoStreamManager:
             return self.current_frame.copy() if self.current_frame is not None else None
     
     def generate_mjpeg(self) -> Generator[bytes, None, None]:
-        """Generate MJPEG stream."""
+        """Generate MJPEG stream at 60 FPS."""
         while self.running:
             frame = self.get_frame()
             if frame is None:
-                time.sleep(0.05)
+                time.sleep(0.01)
                 continue
             
-            # Encode as JPEG
-            ret, jpeg = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 80])
+            # Encode as JPEG (lower quality for speed)
+            ret, jpeg = cv2.imencode('.jpg', frame, [cv2.IMWRITE_JPEG_QUALITY, 60])
             if not ret:
                 continue
             
@@ -321,7 +355,7 @@ class VideoStreamManager:
                 b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n'
             )
             
-            time.sleep(0.033)  # ~30 FPS
+            time.sleep(0.016)  # ~60 FPS
     
     def get_stats(self) -> dict:
         """Get current statistics."""
@@ -481,6 +515,43 @@ async def get_evidence(filename: str):
     if not file_path.exists():
         raise HTTPException(status_code=404, detail="Image not found")
     return FileResponse(file_path, media_type="image/jpeg")
+
+
+@app.post("/api/send-telegram/{event_id}")
+async def send_telegram_notification(event_id: str):
+    """Manually send a Telegram notification for an incident."""
+    # Check if Telegram is enabled
+    if not stream_manager.telegram_notifier or not stream_manager.telegram_notifier.enabled:
+        raise HTTPException(status_code=503, detail="Telegram notifications not configured")
+    
+    # Find the event
+    events = await get_events(50)
+    event_data = None
+    for event in events:
+        if event["id"] == event_id:
+            event_data = event
+            break
+    
+    if not event_data:
+        raise HTTPException(status_code=404, detail="Event not found")
+    
+    # Get image path
+    image_url = event_data.get("imageUrl", "")
+    filename = image_url.split("/")[-1] if image_url else None
+    image_path = stream_manager.evidence_path / filename if filename else None
+    
+    # Send notification
+    try:
+        success = await stream_manager.telegram_notifier.send_incident_alert(
+            event_data,
+            image_path
+        )
+        if success:
+            return {"status": "sent", "message": "Telegram notification sent successfully"}
+        else:
+            return {"status": "skipped", "message": "Notification was rate-limited or failed"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to send notification: {str(e)}")
 
 
 @app.websocket("/ws")

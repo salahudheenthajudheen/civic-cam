@@ -1,0 +1,18 @@
+# CivicCam Streamlit Configuration
+# Dark theme matching the original React design
+
+[theme]
+primaryColor = "#00d4ff"
+backgroundColor = "#0a0a0f"
+secondaryBackgroundColor = "#0d0d12"
+textColor = "#ffffff"
+font = "sans serif"
+
+[server]
+port = 8501
+headless = true
+enableCORS = false
+enableXsrfProtection = true
+
+[browser]
+gatherUsageStats = false

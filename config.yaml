@@ -7,7 +7,7 @@ camera:
   # - Path to video file ("/path/to/video.mp4")
   # - RTSP URL ("rtsp://user:pass@ip:port/stream")
   source: 0
-  fps: 30
+  fps: 60
   resolution: [1280, 720]
   reconnect_delay: 5  # seconds to wait before reconnecting
 
@@ -69,3 +69,16 @@ display:
   text_color: [255, 255, 255]  # BGR format (white)
   box_thickness: 2
   font_scale: 0.6
+
+telegram:
+  enable: true
+  # Bot token from @BotFather (or set TELEGRAM_BOT_TOKEN env var)
+  bot_token: ""
+  # Chat/Group ID to send notifications (or set TELEGRAM_CHAT_ID env var)
+  chat_id: ""
+  # Descriptive location name for messages
+  location: "CivicCam Station 1"
+  # Minimum seconds between notifications (rate limiting)
+  rate_limit_seconds: 10
+  # Whether to attach evidence photos to messages
+  include_evidence_photo: true
